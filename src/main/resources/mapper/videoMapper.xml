@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.chinatelecom.online_class.dao.VideoDao">
+    <select id="findAllVideos" resultType="Video" >
+        select * from video;
+    </select>
+    <select id="findVideoById" resultType="Video">
+        select * from video where id=#{video_id};
+    </select>
+    <resultMap id="VideoDetailResultMap" type="Video">
+        <id column="id" property="id" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="title" property="title" javaType="String" jdbcType="VARCHAR"/>
+        <result column="summary" property="summary" javaType="String" jdbcType="VARCHAR"/>
+        <result column="cover_img" property="cover_img" javaType="String" jdbcType="VARCHAR"/>
+        <result column="price" property="price" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="create_time" property="create_time" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result column="c_id" property="c_id" javaType="Integer" jdbcType="INTEGER"/>
+        <result column="point" property="point" javaType="Double" jdbcType="DOUBLE"/>
+        <collection property="chapterList" ofType="Chapter">
+            <id column="chapter_id" property="id" jdbcType="INTEGER" javaType="Integer"></id>
+            <result property="video_id" javaType="Integer" column="video_id" jdbcType="INTEGER"/>
+            <result property="title" javaType="String" column="title" jdbcType="VARCHAR"/>
+            <result property="ordered" javaType="Integer" column="ordered" jdbcType="INTEGER"/>
+            <result column="chapter_create_time" property="create_time" javaType="Date" jdbcType="TIMESTAMP"/>
+            <collection property="episodeList" ofType="Episode">
+                <id column="episode_id" property="id" jdbcType="INTEGER" javaType="Integer"></id>
+                <result property="num" javaType="Integer" column="num" jdbcType="INTEGER"/>
+                <result property="title" javaType="String" column="episode_title" jdbcType="VARCHAR"/>
+                <result property="ordered" javaType="Integer" column="episode_ordered" jdbcType="INTEGER"/>
+                <result property="play_url" javaType="String" column="play_url" jdbcType="VARCHAR"/>
+                <result property="chapter_id" javaType="Integer" column="chapter_id" jdbcType="INTEGER"/>
+                <result property="cover_img" javaType="String" column="chapter_cover_img" jdbcType="VARCHAR"/>
+                <result property="free" javaType="Integer" column="free" jdbcType="INTEGER"/>
+                <result property="video_id" javaType="Integer" column="chapter_video_id" jdbcType="INTEGER"/>
+                <result property="create_time" javaType="Date" column="episode_create_time" jdbcType="TIMESTAMP"/>
+
+                <result column="chapter_create_time" property="create_time" javaType="Date" jdbcType="TIMESTAMP"/>
+
+            </collection>
+        </collection>
+
+    </resultMap>
+    <select id="findVideoDetailById" resultMap="VideoDetailResultMap" >
+        select v.id,v.title,v.summary,v.cover_img,v.price,v.create_time,v.c_id,v.point,
+            c.id as chapter_id,c.video_id,c.title as chapter_title,c.ordered,c.create_time,
+            e.id as episode_id,e.title as episode_title,e.num,e.ordered as episode_ordered,e.play_url,e.chapter_id as episode_chapter_id,e.free,e.cover_img as episode_cover_img,e.video_id as episode_video_id,e.create_time as episode_create_time
+         from video v
+         left join chapter c on c.video_id = v.id
+         left join episode e on e.chapter_id = c.id
+         where v.id = #{video_id}
+         order by c.ordered,e.num asc
+    </select>
+</mapper>
