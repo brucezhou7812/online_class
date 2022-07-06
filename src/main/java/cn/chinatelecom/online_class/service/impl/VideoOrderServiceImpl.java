@@ -14,6 +14,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * implemention of Video Order Service.
+ */
 @Service
 public class VideoOrderServiceImpl implements VideoOrderService {
     @Autowired
