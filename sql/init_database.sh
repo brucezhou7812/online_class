@@ -1,4 +1,5 @@
 #!/bin/bash
+sudo su
 echo "connect mysql!"
 mysql -hlocalhost -uroot -pBuptzw&812
 if [[ $? = 0 ]];then
