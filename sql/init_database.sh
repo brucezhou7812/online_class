@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 sudo su
 echo "connect mysql!"
 mysql -hlocalhost -uroot -pBuptzw&812
