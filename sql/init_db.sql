@@ -1,5 +1,6 @@
-create database devdb if not exists;
 
+drop database  if exists `devdb`;
+create database devdb;
 CREATE TABLE `chapter` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `video_id` int(11) DEFAULT NULL COMMENT '视频主键',
