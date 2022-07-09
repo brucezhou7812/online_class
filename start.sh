@@ -2,7 +2,7 @@
 set -e
 set -o pipefail
 
-PROJECT_NAME="online_class-0.0.1-SNAPSHOT"
+PROJECT_NAME="online_class"
 nohup java -jar ${PROJECT_NAME}.jar >${PROJECT_NAME}.log&
 start_ok = false
 if[[ $? = 0 ]];then
