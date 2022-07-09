@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 sudo su
+source /etc/profile
 echo "connect mysql!"
 mysql -hlocalhost -uroot -pBuptzw&812
 if [[ $? = 0 ]];then
