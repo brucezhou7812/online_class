@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 source /etc/profile
 export MYSQL_PWD="Buptzw&812"
 echo "connect mysql!"
